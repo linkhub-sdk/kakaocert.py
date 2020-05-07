@@ -219,22 +219,6 @@ class RequestESign(object):
         self.__dict__ = kwargs
 
 
-class GetCMSResult(object):
-    def __init__(self, **kwargs):
-        self.__dict__ = kwargs
-
-
-class GetVerifyAuthResult(object):
-    def __init__(self, **kwargs):
-        self.__dict__ = kwargs
-
-class GetESignResult(object):
-    def __init__(self, **kwargs):
-        self.__dict__ = kwargs
-
-
-
-
 
 class KakaocertException(Exception):
     def __init__(self, code, message):
