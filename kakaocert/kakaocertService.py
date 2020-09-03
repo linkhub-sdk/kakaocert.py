@@ -6,7 +6,7 @@
 # http://www.kakaocert.com
 # Author : Jeong Yohan (code@linkhub.co.kr)
 # Written : 2020-05-07
-# Updated : 2020-05-07
+# Updated : 2020-09-03
 # Thanks for your interest.
 
 import json
@@ -190,9 +190,14 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httppost('/SignToken/Request', postData, ClientCode, "", "")
 
-    def getESignResult(self, ClientCode, receiptId):
+    def getESignResult(self, ClientCode, receiptId, signature = None):
 
-        return self._httpget('/SignToken/' + receiptId , ClientCode)
+        uri = '/SignToken/' + receiptId
+
+        if signature != None:
+            uri += '/'+signature
+
+        return self._httpget(uri, ClientCode)
 
     def requestVerifyAuth(self, ClientCode, requestVerifyAuth):
 
