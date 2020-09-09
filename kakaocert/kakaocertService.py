@@ -6,7 +6,7 @@
 # http://www.kakaocert.com
 # Author : Jeong Yohan (code@linkhub.co.kr)
 # Written : 2020-05-07
-# Updated : 2020-09-03
+# Updated : 2020-09-09
 # Thanks for your interest.
 
 import json
@@ -180,9 +180,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httppost('/SignDirectDebit/Request', postData, ClientCode, "", "")
 
-    def getCMSResult(self, ClientCode, receiptId):
+    def getCMSState(self, ClientCode, receiptId):
 
-        return self._httpget('/SignDirectDebit/' + receiptId , ClientCode)
+        return self._httpget('/SignDirectDebit/Status/' + receiptId , ClientCode)
+
+    def verfiyCMS(self, ClientCode, receiptId):
+
+        return self._httpget('/SignDirectDebit/Verify/' + receiptId , ClientCode)
 
     def requestESign(self, ClientCode, requestESign):
 
@@ -190,9 +194,15 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httppost('/SignToken/Request', postData, ClientCode, "", "")
 
-    def getESignResult(self, ClientCode, receiptId, signature = None):
+    def getESignState(self, ClientCode, receiptId):
 
-        uri = '/SignToken/' + receiptId
+        uri = '/SignToken/Status/' + receiptId
+
+        return self._httpget(uri, ClientCode)
+
+    def verifyESign(self, ClientCode, receiptId, signature = None):
+
+        uri = '/SignToken/Verify/' + receiptId
 
         if signature != None:
             uri += '/'+signature
@@ -205,9 +215,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httppost('/SignIdentity/Request', postData, ClientCode, "", "")
 
-    def getVerifyAuthResult(self, ClientCode, receiptId):
+    def getVerifyAuthState(self, ClientCode, receiptId):
 
-        return self._httpget('/SignIdentity/' + receiptId , ClientCode)
+        return self._httpget('/SignIdentity/Status/' + receiptId , ClientCode)
+
+    def verfiyAuth(self, ClientCode, receiptId):
+
+        return self._httpget('/SignIdentity/Verify/' + receiptId , ClientCode)
 
 
 class RequestCMS(object):

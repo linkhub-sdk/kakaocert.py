@@ -7,7 +7,7 @@ except ImportError:
 
 import sys
 
-version = '1.1.0'
+version = '2.0.0'
 
 if sys.version_info <= (2, 5):
     error = "ERROR: kakaocert requires Python Version 2.6 or above...exiting."
