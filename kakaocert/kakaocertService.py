@@ -219,7 +219,7 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httpget('/SignIdentity/Status/' + receiptId , ClientCode)
 
-    def verfiyAuth(self, ClientCode, receiptId):
+    def verifyAuth(self, ClientCode, receiptId):
 
         return self._httpget('/SignIdentity/Verify/' + receiptId , ClientCode)
 
