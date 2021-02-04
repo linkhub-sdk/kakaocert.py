@@ -1,9 +1,9 @@
-__version__ = '1.0.0'
+__version__ = '2.0.2'
 Version = __version__  # for backward compatibility
 __all__ = ["KakaocertException",
-            "RequestCMS", "GetCMSResult",
-            "RequestVerifyAuth", "GetVerifyAuthResult",
-            "RequestESign", "GetESignResult",
+            "RequestCMS",
+            "RequestVerifyAuth",
+            "RequestESign",
            "KakaocertService"]
 
 from .kakaocertService import *
