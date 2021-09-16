@@ -33,7 +33,9 @@ from linkhub import LinkhubException
 
 ServiceID = 'KAKAOCERT'
 ServiceURL = 'kakaocert-api.linkhub.co.kr'
-APIVersion = '1.0'
+ServiceURL_Static = 'static-kakaocert-api.linkhub.co.kr'
+ServiceURL_GA = 'auth-kakaocert-api.linkhub.co.kr'
+APIVersion = '2.0'
 
 
 def __with_metaclass(meta, *bases):
@@ -56,6 +58,8 @@ class Singleton(type):
 class KakaocertService(__with_metaclass(Singleton, object)):
     IsTest = False
     IPRestrictOnOff = True
+    UseStaticIP = False
+    UseGAIP = False
 
     def __init__(self, LinkID, SecretKey, timeOut=15):
         """ 생성자.
@@ -73,7 +77,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
     def _getConn(self):
         if stime() - self.__connectedAt >= self.__timeOut or self.__conn == None:
-            self.__conn = httpclient.HTTPSConnection(ServiceURL)
+            if self.UseGAIP :
+                self.__conn = httpclient.HTTPSConnection(ServiceURL_GA)
+            elif self.UseStaticIP :
+                self.__conn = httpclient.HTTPSConnection(ServiceURL_Static)
+            else :
+                self.__conn = httpclient.HTTPSConnection(ServiceURL)
+
             self.__connectedAt = stime()
             return self.__conn
         else:
@@ -89,12 +99,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
         refreshToken = True
 
         if token != None:
-            refreshToken = token.expiration[:-5] < linkhub.getTime()
+            refreshToken = token.expiration[:-5] < linkhub.getTime(self.UseStaticIP, False, self.UseGAIP)
 
         if refreshToken:
             try:
                 token = linkhub.generateToken(self.__linkID, self.__secretKey,
-                                              ServiceID, ClientCode, self.__scopes, None if self.IPRestrictOnOff else "*")
+                                              ServiceID, ClientCode, self.__scopes, None if self.IPRestrictOnOff else "*",
+                                              self.UseStaticIP, False, self.UseGAIP)
 
                 try:
                     del self.__tokenCache[ClientCode]
@@ -135,15 +146,15 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
     def _httppost(self, url, postData, ClientCode=None, UserID=None, ActionOverride=None, contentsType=None):
 
-        callDT = linkhub.getTime()
+        callDT = linkhub.getTime(self.UseStaticIP, False, self.UseStaticIP)
 
         hmacTarget = ""
         hmacTarget += "POST\n"
-        hmacTarget += Utils.b64_md5(postData) + "\n"
+        hmacTarget += Utils.b64_sha256(postData) + "\n"
         hmacTarget += callDT + "\n"
         hmacTarget += APIVersion + "\n"
 
-        hmac = Utils.b64_hmac_sha1(self.__secretKey, hmacTarget)
+        hmac = Utils.b64_hmac_sha256(self.__secretKey, hmacTarget)
 
         conn = self._getConn()
 
@@ -262,15 +273,14 @@ class KakaocertEncoder(JSONEncoder):
     def default(self, o):
         return o.__dict__
 
-
 class Utils:
     @staticmethod
-    def b64_md5(input):
-        return base64.b64encode(md5(input.encode('utf-8')).digest()).decode()
+    def b64_sha256(input):
+        return base64.b64encode(sha256(input.encode('utf-8')).digest()).decode('utf-8')
 
     @staticmethod
-    def b64_hmac_sha1(keyString,targetString):
-        return base64.b64encode(hmac.new(base64.b64decode(keyString.encode('utf-8')),targetString.encode('utf-8'),sha1).digest()).decode().rstrip('\n')
+    def b64_hmac_sha256(keyString, targetString):
+        return base64.b64encode(hmac.new(base64.b64decode(keyString.encode('utf-8')), targetString.encode('utf-8'), sha256).digest()).decode('utf-8').rstrip('\n')
 
     @staticmethod
     def _json_object_hook(d):
