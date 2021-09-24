@@ -16,7 +16,7 @@ import hmac
 import json
 
 from io import BytesIO
-from hashlib import sha1
+from hashlib import sha256
 from hashlib import md5
 from time import time as stime
 from json import JSONEncoder
