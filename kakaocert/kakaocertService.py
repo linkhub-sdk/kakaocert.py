@@ -33,7 +33,7 @@ from linkhub import LinkhubException
 ServiceID = 'KAKAOCERT'
 ServiceURL = 'kakaocert-api.linkhub.co.kr'
 ServiceURL_Static = 'static-kakaocert-api.linkhub.co.kr'
-ServiceURL_GA = 'auth-kakaocert-api.linkhub.co.kr'
+ServiceURL_GA = 'ga-kakaocert-api.linkhub.co.kr'
 APIVersion = '2.0'
 
 
@@ -77,10 +77,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
     def _getConn(self):
         if stime() - self.__connectedAt >= self.__timeOut or self.__conn == None:
             if self.UseGAIP :
+                print('UseGAIP')
                 self.__conn = httpclient.HTTPSConnection(ServiceURL_GA)
             elif self.UseStaticIP :
+                print('UseStaticIP')
                 self.__conn = httpclient.HTTPSConnection(ServiceURL_Static)
             else :
+                print('Default')
                 self.__conn = httpclient.HTTPSConnection(ServiceURL)
 
             self.__connectedAt = stime()
