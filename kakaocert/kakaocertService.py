@@ -145,7 +145,7 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
     def _httppost(self, url, postData, ClientCode=None, UserID=None, ActionOverride=None, contentsType=None):
 
-        callDT = linkhub.getTime(self.UseStaticIP, False, self.UseStaticIP)
+        callDT = linkhub.getTime(self.UseStaticIP, False, self.UseGAIP)
 
         hmacTarget = ""
         hmacTarget += "POST\n"
