@@ -1,7 +1,7 @@
 ####
 kakaocert.py
 ####
-kakaocert 2.1.1
+kakaocert 2.50.0
 
 Kakaocert API for Python.
 
