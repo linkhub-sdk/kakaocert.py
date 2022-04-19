@@ -25,61 +25,62 @@ class KakaocertServiceTestCase(unittest.TestCase):
         self.kakocertService.UseLocalTimeYN = True
         self.clientCode = "020040000001"
 
-    def test_1_requestCMS(self):
-        requestCMS = RequestCMS(
-            CallCenterNum = '1600-8536',
-            Expires_in = 60,
-            ReceiverBirthDay = '19941219',
-            ReceiverHP = '01068444508',
-            ReceiverName = '홍길동',
-            BankAccountName = '예금주명',
-            BankAccountNum = '9-4324-5**7-58',
-            BankCode = '004',
-            ClientUserID = 'clientUserID-0423-01',
-            SubClientID = '020040000001',
-            TMSMessage = 'TMSMessage0423',
-            TMSTitle = 'TMSTitle 0423',
-            isAllowSimpleRegistYN = True,
-            isVerifyNameYN = True,
-            PayLoad = 'Payload123'
-            )
-
-        try:
-            result = self.kakocertService.requestCMS(self.clientCode, requestCMS)
-            print(result.receiptId)
-        except KakaocertException as KE:
-            print(str(KE.code) +" "+ KE.message)
-
-    # def test_getCMSResult(self):
-    #     info = self.kakocertService.getCMSResult(self.clientCode, "020050711485700001")
+    # def test_1_requestCMS(self):
+    #     requestCMS = RequestCMS(
+    #         CallCenterNum = '1600-8536',
+    #         Expires_in = 60,
+    #         ReceiverBirthDay = '19941219',
+    #         ReceiverHP = '01068444508',
+    #         ReceiverName = '김원재',
+    #         BankAccountName = '예금주명',
+    #         BankAccountNum = '9-4324-5**7-58',
+    #         BankCode = '004',
+    #         ClientUserID = 'clientUserID-0423-01',
+    #         SubClientID = '020040000001',
+    #         TMSMessage = 'TMSMessage0423',
+    #         TMSTitle = 'TMSTitle 0423',
+    #         isAllowSimpleRegistYN = True,
+    #         isVerifyNameYN = True,
+    #         PayLoad = 'Payload123'
+    #         )
     #
-    #     print(info.receiptID)
-    #     print(info.clientCode)
-    #     print(info.clientName)
-    #     print(info.state)
-    #     print(info.regDT)
-    #     print(info.receiverHP)
-    #     print(info.receiverName)
-    #     print(info.receiverBirthday)
-    #     print(info.bankAccountName)
-    #     print(info.bankAccountNum)
-    #     print(info.bankCode)
-    #     print(info.clientUserID)
-    #     print(info.expires_in)
-    #     print(info.callCenterNum)
-    #     print(info.allowSimpleRegistYN)
-    #     print(info.verifyNameYN)
-    #     print(info.payload)
-    #     print(info.requestDT)
-    #     print(info.expireDT)
-    #     print(info.tmstitle)
-    #     print(info.tmsmessage)
-    #     print(info.signedData)
-    #     print(info.subClientName)
-    #     print(info.subClientCode)
-    #     print(info.viewDT)
-    #     print(info.completeDT)
-    #     print(info.verifyDT)
+    #     try:
+    #         result = self.kakocertService.requestCMS(self.clientCode, requestCMS)
+    #         print(result.receiptId)
+    #     except KakaocertException as KE:
+    #         print(str(KE.code) +" "+ KE.message)
+
+    def test_getCMSResult(self):
+        info = self.kakocertService.getCMSState(self.clientCode, "022041917580100001")
+
+        print(info.receiptID)
+        print(info.clientCode)
+        print(info.clientName)
+        print(info.state)
+        print(info.regDT)
+        print(info.receiverHP)
+        print(info.receiverName)
+        print(info.receiverBirthday)
+        print(info.bankAccountName)
+        print(info.bankAccountNum)
+        print(info.bankCode)
+        print(info.clientUserID)
+        print(info.expires_in)
+        print(info.callCenterNum)
+        print(info.allowSimpleRegistYN)
+        print(info.verifyNameYN)
+        print(info.payload)
+        print(info.requestDT)
+        print(info.expireDT)
+        print(info.tmstitle)
+        print(info.tmsmessage)
+        print(info.signedData)
+        print(info.subClientName)
+        print(info.subClientCode)
+        print(info.viewDT)
+        print(info.completeDT)
+        print(info.verifyDT)
+        print("appUseYN : " +  str(info.appUseYN))
 
     # def test_getVerifyAuthState(self) :
     #     try :

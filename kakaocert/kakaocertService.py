@@ -185,8 +185,9 @@ class KakaocertService(__with_metaclass(Singleton, object)):
     def _stringtify(self, obj):
         return json.dumps(obj, cls=KakaocertEncoder)
 
-    def requestCMS(self, ClientCode, requestCMS):
+    def requestCMS(self, ClientCode, requestCMS, appUseYN = False):
 
+        requestCMS.isAppUseYN = appUseYN
         postData = self._stringtify(requestCMS)
 
         return self._httppost('/SignDirectDebit/Request', postData, ClientCode, "", "")
@@ -199,8 +200,9 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httpget('/SignDirectDebit/Verify/' + receiptId , ClientCode)
 
-    def requestESign(self, ClientCode, requestESign):
+    def requestESign(self, ClientCode, requestESign, appUseYN = False):
 
+        requestESign.isAppUseYN = appUseYN
         postData = self._stringtify(requestESign)
 
         return self._httppost('/SignToken/Request', postData, ClientCode, "", "")
