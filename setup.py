@@ -7,7 +7,7 @@ except ImportError:
 
 import sys
 
-version = '2.50.0'
+version = '2.51.0'
 
 if sys.version_info <= (2, 5):
     error = "ERROR: kakaocert requires Python Version 2.6 or above...exiting."
@@ -19,7 +19,7 @@ setup(name = "kakaocert",
       description = "kakaocert API SDK Library",
       long_description = "kakaocert API SDK. Consist of kakaopay auth Service. http://www.kakaocert.com",
       author = "Jeong Yohan",
-      author_email = "code@linkhub.co.kr",
+      author_email = "code@linkhubcorp.com",
       url = "https://github.com/linkhub-sdk/kakaocert.py",
       download_url = "https://github.com/linkhub-sdk/kakaocert.py/archive/"+version+".tar.gz",
       packages = ["kakaocert"],
