@@ -3,10 +3,10 @@
 # RESTful web service request and parse json result. It uses Linkhub module
 # to accomplish authentication APIs.
 #
-# http://www.kakaocert.com
-# Author : Jeong Yohan (code@linkhub.co.kr)
+# https://www.kakaocert.com
+# Author : Jeong Yohan (code@linkhubcorp.com)
 # Written : 2020-05-07
-# Updated : 2020-09-09
+# Updated : 2022-04-19
 # Thanks for your interest.
 
 import json
