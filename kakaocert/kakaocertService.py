@@ -196,9 +196,13 @@ class KakaocertService(__with_metaclass(Singleton, object)):
 
         return self._httpget('/SignDirectDebit/Status/' + receiptId , ClientCode)
 
-    def verifyCMS(self, ClientCode, receiptId):
+    def verifyCMS(self, ClientCode, receiptId, signature = None):
+        uri = '/SignDirectDebit/Verify/' + receiptId
+        
+        if signature != None:
+            uri += '/'+signature
 
-        return self._httpget('/SignDirectDebit/Verify/' + receiptId , ClientCode)
+        return self._httpget(uri, ClientCode)
 
     def requestESign(self, ClientCode, requestESign, appUseYN = False):
 

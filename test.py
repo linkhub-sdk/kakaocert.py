@@ -50,37 +50,37 @@ class KakaocertServiceTestCase(unittest.TestCase):
     #     except KakaocertException as KE:
     #         print(str(KE.code) +" "+ KE.message)
 
-    def test_getCMSResult(self):
-        info = self.kakocertService.getCMSState(self.clientCode, "022041917580100001")
-
-        print(info.receiptID)
-        print(info.clientCode)
-        print(info.clientName)
-        print(info.state)
-        print(info.regDT)
-        print(info.receiverHP)
-        print(info.receiverName)
-        print(info.receiverBirthday)
-        print(info.bankAccountName)
-        print(info.bankAccountNum)
-        print(info.bankCode)
-        print(info.clientUserID)
-        print(info.expires_in)
-        print(info.callCenterNum)
-        print(info.allowSimpleRegistYN)
-        print(info.verifyNameYN)
-        print(info.payload)
-        print(info.requestDT)
-        print(info.expireDT)
-        print(info.tmstitle)
-        print(info.tmsmessage)
-        print(info.signedData)
-        print(info.subClientName)
-        print(info.subClientCode)
-        print(info.viewDT)
-        print(info.completeDT)
-        print(info.verifyDT)
-        print("appUseYN : " +  str(info.appUseYN))
+    # def test_getCMSResult(self):
+    #     info = self.kakocertService.getCMSState(self.clientCode, "022041917580100001")
+    #
+    #     print(info.receiptID)
+    #     print(info.clientCode)
+    #     print(info.clientName)
+    #     print(info.state)
+    #     print(info.regDT)
+    #     print(info.receiverHP)
+    #     print(info.receiverName)
+    #     print(info.receiverBirthday)
+    #     print(info.bankAccountName)
+    #     print(info.bankAccountNum)
+    #     print(info.bankCode)
+    #     print(info.clientUserID)
+    #     print(info.expires_in)
+    #     print(info.callCenterNum)
+    #     print(info.allowSimpleRegistYN)
+    #     print(info.verifyNameYN)
+    #     print(info.payload)
+    #     print(info.requestDT)
+    #     print(info.expireDT)
+    #     print(info.tmstitle)
+    #     print(info.tmsmessage)
+    #     print(info.signedData)
+    #     print(info.subClientName)
+    #     print(info.subClientCode)
+    #     print(info.viewDT)
+    #     print(info.completeDT)
+    #     print(info.verifyDT)
+    #     print("appUseYN : " +  str(info.appUseYN))
 
     # def test_getVerifyAuthState(self) :
     #     try :
@@ -88,6 +88,14 @@ class KakaocertServiceTestCase(unittest.TestCase):
     #     except KakaocertException as KE :
     #         print(KE.code)
     #         print(KE.message)
+
+    def test_verifyCMS(self) :
+        try :
+            obj = self.kakocertService.verifyCMS(self.clientCode, "020050711485700002")
+            print(obj)
+        except KakaocertException as KE :
+            print(KE.code)
+            print(KE.message)
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(KakaocertServiceTestCase)
